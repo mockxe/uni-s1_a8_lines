@@ -86,6 +86,16 @@ sealed class Gerade permits Strahl {
 
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass().equals(Gerade.class)) {
+            Gerade g = (Gerade) obj;
+            return (this.enthaelt(g.p1) && this.enthaelt(g.p2));
+        } else {
+            return false;
+        }
+    }
+
+    @Override
     public String toString() {
         return "Gerade durch " + p1 + " und " + p2;
     }

@@ -118,4 +118,61 @@ class GeradeTest {
         assert g1.enthaelt(d);
     }
 
+    @Test
+    void testEqualsPointsEqual() throws SinglePointException {
+        Punkt a = new Punkt(5, 0);
+        Punkt b = new Punkt(10, 0);
+
+        Gerade g1 = new Gerade(a, b);
+        Gerade g2 = new Gerade(a, b);
+
+        assert g1.equals(g2);
+        assert g2.equals(g1);
+    }
+
+    @Test
+    void testEqualsPointsBefore() throws SinglePointException {
+        Gerade g1 = new Gerade(
+                new Punkt(5, 0),
+                new Punkt(10, 0)
+        );
+        Gerade g2 = new Gerade(
+                new Punkt(1, 0),
+                new Punkt(4, 0)
+        );
+
+        assert g1.equals(g2);
+        assert g2.equals(g1);
+    }
+
+    @Test
+    void testEqualsPointsBehind() throws SinglePointException {
+        Gerade g1 = new Gerade(
+                new Punkt(5, 0),
+                new Punkt(10, 0)
+        );
+        Gerade g2 = new Gerade(
+                new Punkt(11, 0),
+                new Punkt(15, 0)
+        );
+
+        assert g1.equals(g2);
+        assert g2.equals(g1);
+    }
+
+    @Test
+    void testEqualsPointsBetween() throws SinglePointException {
+        Gerade g1 = new Gerade(
+                new Punkt(5, 0),
+                new Punkt(10, 0)
+        );
+        Gerade g2 = new Gerade(
+                new Punkt(6, 0),
+                new Punkt(9, 0)
+        );
+
+        assert g1.equals(g2);
+        assert g2.equals(g1);
+    }
+
 }
