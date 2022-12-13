@@ -1,5 +1,9 @@
 package io.mockxe.uni.s1.a8.lines;
 
+import io.mockxe.uni.s1.a8.lines.external.BigDecimalUtility;
+
+import java.math.BigDecimal;
+
 sealed class Gerade permits Strahl {
 
     private final Punkt p1;
@@ -34,6 +38,41 @@ sealed class Gerade permits Strahl {
                 throw new SinglePointException(p1);
             }
         }
+    }
+
+
+    public boolean enthaelt(Punkt p0) {
+        return (zwischenp1p2(p0) || vorp1(p0) || hinterp2(p0));
+    }
+
+    protected boolean zwischenp1p2(Punkt p0) {
+        // p1 <-> p0 + p2 <-> p0 == p1 <-> p2
+
+        BigDecimal p1p2 = p1.abstand(p2);
+        BigDecimal p0p1 = p0.abstand(p1);
+        BigDecimal p0p2 = p0.abstand(p2);
+
+        return BigDecimalUtility.equalValues(p0p1.add(p0p2), p1p2);
+    }
+
+    protected boolean vorp1(Punkt p0) {
+        // p0 <-> p1 + p1 <-> p2 == p0 <-> p2
+
+        BigDecimal p1p2 = p1.abstand(p2);
+        BigDecimal p0p1 = p0.abstand(p1);
+        BigDecimal p0p2 = p0.abstand(p2);
+
+        return BigDecimalUtility.equalValues(p0p1.add(p1p2), p0p2);
+    }
+
+    protected boolean hinterp2(Punkt p0) {
+        // p0 <-> p2 + p1 <-> p2 = p0 <-> p1
+
+        BigDecimal p1p2 = p1.abstand(p2);
+        BigDecimal p0p1 = p0.abstand(p1);
+        BigDecimal p0p2 = p0.abstand(p2);
+
+        return BigDecimalUtility.equalValues(p0p2.add(p1p2), p0p1);
     }
 
 
